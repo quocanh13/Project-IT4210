@@ -7,6 +7,10 @@ void set_led(uint16_t led, uint8_t state){
 
 }
 
+uint8_t get_led(uint16_t led){
+    
+}
+
 void rand_led(unsigned int level){
 
 }
