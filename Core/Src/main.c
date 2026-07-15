@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "lcd.h"
+#include "game_random.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +46,14 @@ I2C_HandleTypeDef hi2c1;
 
 /* USER CODE BEGIN PV */
 
+const uint16_t led_pins[6] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12};
+const uint16_t btn_pins[6] = {GPIO_PIN_2, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_7};
+
+int8_t active_led = -1;
+uint16_t score = 0;
+volatile uint8_t button_pressed = 0;
+volatile int8_t pressed_position = -1;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -57,6 +66,24 @@ static void MX_I2C1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+void turn_off_all_leds(void)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        HAL_GPIO_WritePin(GPIOA, led_pins[i], GPIO_PIN_RESET);
+    }
+}
+
+void turn_on_led(uint8_t pos)
+{
+    turn_off_all_leds();
+    if (pos < 6)
+    {
+        HAL_GPIO_WritePin(GPIOA, led_pins[pos], GPIO_PIN_SET);
+        active_led = pos;
+    }
+}
 
 /* USER CODE END 0 */
 
@@ -93,6 +120,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
     lcd_init();
     lcd_set_cursor(0, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,6 +130,17 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+    uint8_t pos = random_position();
+    turn_on_led(pos);
+    button_pressed = 0;
+
+    char buf[17];
+    lcd_set_cursor(0, 0);
+    sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
+    lcd_print(buf);
+
+    HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
@@ -254,37 +293,21 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    char pin[100];
-    sprintf(pin, "%i", GPIO_Pin);
-    lcd_print(pin);
-    switch (GPIO_Pin)
+    for (int i = 0; i < 6; i++)
     {
-        case GPIO_PIN_2: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-            break;
+        if (GPIO_Pin == btn_pins[i])
+        {
+            pressed_position = i;
+            button_pressed = 1;
 
-        case GPIO_PIN_3: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+            if (i == active_led)
+            {
+                HAL_GPIO_WritePin(GPIOA, led_pins[i], GPIO_PIN_RESET);
+                score++;
+                active_led = -1;
+            }
             break;
-
-        case GPIO_PIN_4: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
-            break;
-
-        case GPIO_PIN_5: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, GPIO_PIN_RESET);
-            break;
-
-        case GPIO_PIN_6: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
-            break;
-
-        case GPIO_PIN_7: 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
-            break;
-
-        default:
-            break;
+        }
     }
 }
 /* USER CODE END 4 */
