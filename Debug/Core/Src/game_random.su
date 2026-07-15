@@ -1,0 +1,3 @@
+../Core/Src/game_random.c:11:6:random_seed	8	static
+../Core/Src/game_random.c:19:9:random_get	16	static
+../Core/Src/game_random.c:32:9:random_position	8	static
