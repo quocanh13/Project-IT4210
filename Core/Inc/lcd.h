@@ -1,5 +1,5 @@
-#ifndef lcd
-#define lcd
+#ifndef __LCD_H__
+#define __LCD_H__
 
 #include "main.h"
 
