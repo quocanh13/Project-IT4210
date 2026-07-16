@@ -69,3 +69,20 @@ void lcd_set_cursor(int row, int col) {
 void lcd_print(char *str) {
     while (*str) lcd_send_data(*str++);
 }
+
+void lcd_print_game(uint8_t level, unsigned int score){
+    char s[20];
+
+    lcd_set_cursor(0, 0);
+    lcd_print("                         ");
+    lcd_set_cursor(1, 0);
+    lcd_print("                         ");
+    
+    lcd_set_cursor(0, 0);
+    sprintf(s, "Level: %i", level + 1);
+    lcd_print(s);
+
+    lcd_set_cursor(1, 0);
+    sprintf(s, "Score: %i", score);
+    lcd_print(s);
+}
