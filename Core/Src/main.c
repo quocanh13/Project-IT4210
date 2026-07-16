@@ -259,9 +259,14 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+volatile uint32_t last_button_time = 0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    handle_press_button(GPIO_Pin);
+    uint32_t current_time = HAL_GetTick();
+    if (current_time - last_button_time > 200) {
+            press_button(GPIO_Pin); 
+        last_button_time = current_time; 
+    }
 }
 /* USER CODE END 4 */
 
