@@ -70,23 +70,7 @@ static void MX_I2C1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void turn_off_all_leds(void)
-{
-    for (int i = 0; i < 6; i++)
-    {
-        HAL_GPIO_WritePin(GPIOA, led_pins[i], GPIO_PIN_RESET);
-    }
-}
-
-void turn_on_led(uint8_t pos)
-{
-    turn_off_all_leds();
-    if (pos < 6)
-    {
-        HAL_GPIO_WritePin(GPIOA, led_pins[pos], GPIO_PIN_SET);
-        active_led = pos;
-    }
-}
+/* turn_off_all_leds() and turn_on_led() moved to led.c */
 
 /* USER CODE END 0 */
 
