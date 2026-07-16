@@ -10,4 +10,8 @@ void press_button(uint8_t button);      // Hàm xử lý sự kiện nhấn butt
 
 extern volatile uint8_t score_updated;  // Cờ báo cần cập nhật LCD
 
+void game_loop(uint32_t round_timeout); // Hàm chứa logic chính của game
+void pause_game(void);                  // Dừng random đèn (pause game)
+void resume_game(void);                 // Tiếp tục random đèn (resume game)
+
 #endif

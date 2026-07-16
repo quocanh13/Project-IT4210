@@ -26,7 +26,6 @@
 #include "game.h"
 #include "button.h"
 #include "led.h"
-#include "random.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,10 +99,9 @@ int main(void)
     lcd_set_cursor(0, 0);
     reset_state();
     lcd_print("0");
-    rand_led(1);  // Bật 1 đèn ngẫu nhiên đầu tiên
+    rand_led(1);  
 
-    uint32_t last_round_time = HAL_GetTick();
-    uint32_t round_timeout = 3000;  // Độ khó (ms): 3000 = dễ, 1000 = khó
+    uint32_t round_timeout = 3000;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -114,12 +112,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    /* Hết thời gian → chuyển lượt mới */
-    if (HAL_GetTick() - last_round_time >= round_timeout)
-    {
-        next_round();
-        last_round_time = HAL_GetTick();
-    }
+    game_loop(round_timeout); // Hàm chứa toàn bộ logic chuyển lượt
 
   }
   /* USER CODE END 3 */

@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "led.h"
 #include "lcd.h"
+#include "random.h"
 
 unsigned int score = 0;
+uint32_t last_round_time = 0;
 
 void reset_state(){
     score = 0;
@@ -30,4 +32,32 @@ void press_button(uint8_t button){
     lcd_set_cursor(0, 0);
     sprintf(s, "%i %i %i            ", button, led_state, score);
     lcd_print(s);
+}
+
+uint8_t is_game_running = 1;
+
+void pause_game(void) {
+    is_game_running = 0;
+    turn_off_all_leds();
+}
+
+void resume_game(void) {
+    is_game_running = 1;
+    last_round_time = HAL_GetTick(); 
+    rand_led(1);                  
+}
+
+void game_loop(uint32_t round_timeout) {
+    if (!is_game_running) {
+        return;
+    }
+
+    if (last_round_time == 0) {
+        last_round_time = HAL_GetTick();
+    }
+
+    if (HAL_GetTick() - last_round_time >= round_timeout) {
+        next_round();
+        last_round_time = HAL_GetTick();
+    }
 }
