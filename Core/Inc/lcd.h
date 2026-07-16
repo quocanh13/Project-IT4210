@@ -41,5 +41,6 @@ void lcd_send_cmd(char cmd);                // Hàm gửi lệnh xuống LCD
 void lcd_init(void);                        // Hàm khởi tạo LCD ở chế độ 4 bit
 void lcd_set_cursor(int row, int col);      // Hàm thiết lập vị trí con trỏ
 void lcd_print(char *str);                  // Hàm in xâu ra màn hình tính từ vị trí con trỏ hiện tại
+void lcd_clear(void);                        // Hàm xóa màn hình LCD
 
 #endif
