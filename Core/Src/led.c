@@ -6,11 +6,11 @@ uint8_t current_led[6] = {0};
 
 /* ---- LED functions ---- */
 
-void set_led(uint16_t led, uint8_t state){
+void set_led(uint8_t led_index, uint8_t state){
     if (state)
-        HAL_GPIO_WritePin(LED_PORT, led, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED_PORT, LED[led_index], GPIO_PIN_SET);
     else
-        HAL_GPIO_WritePin(LED_PORT, led, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LED_PORT, LED[led_index], GPIO_PIN_RESET);
 }
 
 void turn_off_all_leds(void)
@@ -28,6 +28,10 @@ void turn_on_led(uint8_t pos)
     {
         HAL_GPIO_WritePin(LED_PORT, LED[pos], GPIO_PIN_SET);
     }
+}
+
+uint8_t get_led(uint8_t led_index){
+    return current_led[led_index];
 }
 
 void rand_led(unsigned int level){

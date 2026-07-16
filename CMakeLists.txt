@@ -48,6 +48,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/lcd.c
     Core/Src/main.c
     Core/Src/led.c
+    Core/Src/game.c
+    Core/Src/button.c
 )
 
 # Add include paths

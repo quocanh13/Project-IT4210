@@ -23,6 +23,8 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "lcd.h"
+#include "game.h"
+#include "button.h"
 #include "led.h"
 /* USER CODE END Includes */
 
@@ -104,44 +106,18 @@ int main(void)
   /* USER CODE BEGIN 2 */
     lcd_init();
     lcd_set_cursor(0, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12, GPIO_PIN_SET);
+    reset_state();
+    lcd_print("0");
+    rand_led(1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  /* Start first round */
-  uint8_t pos = random_position();
-  turn_on_led(pos);
-  active_led = pos;
-  button_pressed = 0;
-
-  char buf[17];
-  lcd_set_cursor(0, 0);
-  sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
-  lcd_print(buf);
-
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-    /* Wait until a button is pressed */
-    if (button_pressed)
-    {
-      button_pressed = 0;
-
-      /* If correct button, score already incremented in callback */
-      /* Either way, switch to a new random LED immediately */
-      pos = random_position();
-      turn_on_led(pos);
-      active_led = pos;
-
-      lcd_set_cursor(0, 0);
-      sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
-      lcd_print(buf);
-    }
   }
   /* USER CODE END 3 */
 }
@@ -253,13 +229,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_9|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA4 PA5 PA8 PA9
-                           PA10 PA11 PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12;
+  /*Configure GPIO pins : PA6 PA7 PA9 PA10
+                           PA11 PA12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_9|GPIO_PIN_10
+                          |GPIO_PIN_11|GPIO_PIN_12;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -294,22 +270,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    for (int i = 0; i < 6; i++)
-    {
-        if (GPIO_Pin == btn_pins[i])
-        {
-            pressed_position = i;
-            button_pressed = 1;
-
-            if (i == active_led)
-            {
-                HAL_GPIO_WritePin(GPIOA, led_pins[i], GPIO_PIN_RESET);
-                score++;
-                active_led = -1;
-            }
-            break;
-        }
-    }
+    handle_press_button(GPIO_Pin);
 }
 /* USER CODE END 4 */
 
