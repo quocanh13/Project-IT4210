@@ -47,15 +47,6 @@
 I2C_HandleTypeDef hi2c1;
 
 /* USER CODE BEGIN PV */
-
-const uint16_t led_pins[6] = {GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12};
-const uint16_t btn_pins[6] = {GPIO_PIN_2, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_7};
-
-int8_t active_led = -1;
-uint16_t score = 0;
-volatile uint8_t button_pressed = 0;
-volatile int8_t pressed_position = -1;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

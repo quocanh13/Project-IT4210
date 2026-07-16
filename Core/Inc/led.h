@@ -14,7 +14,7 @@
 #define LED_5 GPIO_PIN_11
 #define LED_6 GPIO_PIN_12
 
-void set_led(uint16_t led, uint8_t state);      // Thiết lập trạng thái bật tắt cho đèn LED (0 - 1)
+void set_led(uint8_t led_index, uint8_t state);      // Thiết lập trạng thái bật tắt cho đèn LED (0 - 1)
 uint8_t get_led(uint8_t led_index);                  // Lấy trạng thái hiện tại của đèn LED (0 - 1)
 void rand_led(unsigned int level);              // Làm đèn LED nhảy ngẫu nhiên
 
@@ -24,7 +24,7 @@ void rand_led(unsigned int level);              // Làm đèn LED nhảy ngẫu 
 extern uint32_t seed;
 
 /* LED functions */
-void set_led(uint16_t led, uint8_t state);
+void set_led(uint8_t led_index, uint8_t state);
 void rand_led(unsigned int level);
 void turn_off_all_leds(void);
 void turn_on_led(uint8_t pos);

@@ -11,7 +11,7 @@ void reset_state(){
     }
 }
 
-void get_score(){
+unsigned int get_score(){
     return score;
 }
 
@@ -21,7 +21,8 @@ void press_button(uint8_t button){
         set_led(button, 0);
         score++;
     } else {
-        score--;
+        if(score > 0) 
+            score--;
     }
     char s[20];
     sprintf(s, "%i", score);
