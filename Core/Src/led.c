@@ -2,7 +2,6 @@
 
 /* LED pin array */
 const uint16_t LED[] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED_6};
-uint8_t current_led[6] = {0};
 
 /* ---- LED functions ---- */
 
@@ -31,7 +30,7 @@ void turn_on_led(uint8_t pos)
 }
 
 uint8_t get_led(uint8_t led_index){
-    return current_led[led_index];
+    return HAL_GPIO_ReadPin(LED_PORT, LED[led_index]);
 }
 
 void rand_led(unsigned int level){

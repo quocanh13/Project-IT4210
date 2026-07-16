@@ -24,7 +24,14 @@ void press_button(uint8_t button){
         if(score > 0) 
             score--;
     }
+    lcd_clear();
     char s[20];
+    
+    lcd_set_cursor(0, 0);
+    sprintf(s, "Button : %i", button);
+    lcd_print(s);
+
+    lcd_set_cursor(1, 0);
     sprintf(s, "%i", score);
     lcd_print(s);
 }
