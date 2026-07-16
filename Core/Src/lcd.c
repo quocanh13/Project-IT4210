@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lcd.h"
+#include <stdio.h>
 
 void lcd_send_cmd(char cmd) {
     char data_u, data_l;

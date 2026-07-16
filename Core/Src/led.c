@@ -3,7 +3,7 @@
 #include <math.h>
 
 const uint16_t LED[] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED_6};
-const MAX_RANDOM_COUNT = 20;
+const int MAX_RANDOM_COUNT = 20;
 uint32_t prev_time = 0;
 uint8_t is_start = 0;
 uint8_t random_count = 0;
@@ -42,7 +42,6 @@ uint8_t random_position(void)
 void random_led(){
     uint8_t index = random_position();
     set_led(index, 1);
-    char s[20];
 }
 
 void start_random_led(){
