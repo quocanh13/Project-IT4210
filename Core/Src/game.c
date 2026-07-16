@@ -25,6 +25,9 @@ void press_button(uint8_t button){
     char s[20];
 
     lcd_set_cursor(0, 0);
-    sprintf(s, "%i %i %i", button, led_state, score);
+    lcd_print("                         ");
+    
+    lcd_set_cursor(0, 0);
+    sprintf(s, "%i %i %i            ", button, led_state, score);
     lcd_print(s);
 }
