@@ -26,6 +26,7 @@
 #include "game.h"
 #include "button.h"
 #include "led.h"
+#include "random.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,6 +101,7 @@ int main(void)
     reset_state();
     lcd_print("0");
     rand_led(1);
+    uint32_t last_random_time = HAL_GetTick();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -109,6 +111,26 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if (score_updated)
+    {
+        score_updated = 0;
+        
+        char buf[17];
+        lcd_clear();
+        lcd_set_cursor(0, 0);
+        sprintf(buf, "Score: %d", get_score());
+        lcd_print(buf);
+
+        rand_led(1);
+        last_random_time = HAL_GetTick(); // Reset thời gian chờ
+    }
+    
+    // Nếu quá 2000ms (2 giây) mà không bấm, tự động nhảy đèn mới
+    if (HAL_GetTick() - last_random_time >= 2000)
+    {
+        rand_led(1);
+        last_random_time = HAL_GetTick();
+    }
   }
   /* USER CODE END 3 */
 }

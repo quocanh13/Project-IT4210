@@ -1,0 +1,4 @@
+../Core/Src/random.c:10:6:random_seed	8	static
+../Core/Src/random.c:14:9:random_get	16	static
+../Core/Src/random.c:21:9:random_position	8	static
+../Core/Src/random.c:25:6:rand_led	24	static
