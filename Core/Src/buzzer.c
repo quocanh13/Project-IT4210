@@ -55,24 +55,54 @@ void buzzer_play_melody(const Note *melody, uint16_t len) {
 
 void sound_game_start(void) {
     static const Note m[] = {
-        {NOTE_C4,120},{NOTE_E4,120},{NOTE_G4,120},{NOTE_C5,250}
+        {NOTE_C4, 120}, {NOTE_E4, 120}, {NOTE_G4, 120}, {NOTE_C5, 250}
     };
     buzzer_play_melody(m, 4);
 }
 
 void sound_game_end(void) {
     static const Note m[] = {
-        {NOTE_G4,150},{NOTE_E4,150},{NOTE_C4,150},{REST,50},{NOTE_C4,300}
+        {NOTE_G4, 150}, {NOTE_E4, 150}, {NOTE_C4, 150}, {REST, 50}, {NOTE_C4, 300}
     };
     buzzer_play_melody(m, 5);
 }
 
 void sound_hit(void) {
-    // Kêu ngắn 100ms - Báo hiệu tích cực (tần số cao)
     buzzer_play_tone(NOTE_C5, 100);
 }
 
 void sound_miss(void) {
-    // Kêu dài 300ms - Báo hiệu lỗi (tần số thấp)
-    buzzer_play_tone(NOTE_A4, 300);
+    // Rớt từ 262Hz (C4) xuống 196Hz (G3)
+    static const Note m[] = {
+        {NOTE_C4, 150}, {NOTE_G3, 300}
+    };
+    buzzer_play_melody(m, 2);
+}
+
+
+void sound_level_up(void) {
+    // E4 -> G4 -> C5 -> E5 -> G5
+    static const Note m[] = {
+        {NOTE_E4, 100}, {NOTE_G4, 100}, {NOTE_C5, 100}, {NOTE_E5, 150}, {NOTE_G5, 200}
+    };
+    buzzer_play_melody(m, 5);
+}
+
+void sound_level_down(void) {
+    // E5 -> C5 -> G4 -> E4
+    static const Note m[] = {
+        {NOTE_E5, 100}, {NOTE_C5, 100}, {NOTE_G4, 100}, {NOTE_E4, 250}
+    };
+    buzzer_play_melody(m, 4);
+}
+
+void sound_countdown(void) {
+    // C5 (ngắn) x3 lần, kết thúc bằng G5 (dài)
+    static const Note m[] = {
+        {NOTE_C5, 150}, {REST, 350},
+        {NOTE_C5, 150}, {REST, 350},
+        {NOTE_C5, 150}, {REST, 350},
+        {NOTE_G5, 400}
+    };
+    buzzer_play_melody(m, 7);
 }

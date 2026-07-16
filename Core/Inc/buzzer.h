@@ -20,5 +20,8 @@ void sound_game_start(void);
 void sound_game_end(void);
 void sound_hit(void);
 void sound_miss(void);
+void sound_level_up(void);
+void sound_level_down(void);
+void sound_countdown(void);
 
 #endif

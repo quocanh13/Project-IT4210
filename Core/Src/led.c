@@ -1,5 +1,6 @@
 #include "led.h"
 #include "lcd.h"
+#include "game.h"
 #include <math.h>
 
 const uint16_t LED[] = {LED_1, LED_2, LED_3, LED_4, LED_5, LED_6};
@@ -67,7 +68,9 @@ void next_random_led(unsigned int level){
             random_led();
         prev_time = cur_time;
         random_count++;
-        if(random_count >= MAX_RANDOM_COUNT)
+        if(random_count >= MAX_RANDOM_COUNT) {
             is_start = 0;
+            pending_sound = 3;
+        }
     }
 }

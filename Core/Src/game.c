@@ -41,6 +41,7 @@ void press_level_up_button(){
     score = 0;
     stop_random_led();
     lcd_print_game(level, score);
+    pending_sound = 4;
 }
 
 void press_level_down_button(){
@@ -49,10 +50,11 @@ void press_level_down_button(){
     score = 0;
     stop_random_led();
     lcd_print_game(level, score);
+    pending_sound = 5;
 }
 
 void press_start_button(){
     score = 0;
     lcd_print_game(level, score);
-    start_random_led();
+    pending_sound = 6;
 }

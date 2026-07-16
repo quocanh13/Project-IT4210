@@ -116,9 +116,17 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     if (pending_sound) {
-        if (pending_sound == 1) sound_hit();
-        else if (pending_sound == 2) sound_miss();
+        uint8_t snd = pending_sound;
         pending_sound = 0;
+        if (snd == 1) sound_hit();
+        else if (snd == 2) sound_miss();
+        else if (snd == 3) sound_game_end();
+        else if (snd == 4) sound_level_up();
+        else if (snd == 5) sound_level_down();
+        else if (snd == 6) {
+            sound_countdown();
+            start_random_led();
+        }
     }
 
     next_random_led(level);
