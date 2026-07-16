@@ -6,7 +6,9 @@
             "intelliSenseMode": "windows-msvc-x64",
             "cStandard": "c17",
             "cppStandard": "gnu++17",
-            "includePath": ["${workspaceFolder}/**"]
+            "includePath": [
+                "${workspaceFolder}/**"
+            ]
         }
     ],
     "version": 4
