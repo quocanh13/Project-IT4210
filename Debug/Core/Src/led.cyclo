@@ -1,0 +1,8 @@
+../Core/Src/led.c:8:6:set_led	2
+../Core/Src/led.c:15:6:turn_off_all_leds	2
+../Core/Src/led.c:23:6:turn_on_led	2
+../Core/Src/led.c:32:9:get_led	1
+../Core/Src/led.c:36:6:rand_led	1
+../Core/Src/led.c:45:6:random_seed	1
+../Core/Src/led.c:49:9:random_get	2
+../Core/Src/led.c:56:9:random_position	1

@@ -3,6 +3,7 @@
 #include "lcd.h"
 
 unsigned int score = 0;
+volatile uint8_t score_updated = 0;
 
 void reset_state(){
     score = 0;
@@ -24,9 +25,5 @@ void press_button(uint8_t button){
         if(score > 0) 
             score--;
     }
-    char s[20];
-
-    lcd_set_cursor(0, 0);
-    sprintf(s, "%i                     ", score);
-    lcd_print(s);
+    score_updated = 1;
 }

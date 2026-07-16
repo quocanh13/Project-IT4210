@@ -1,8 +1,6 @@
-../Core/Src/main.c:70:6:turn_off_all_leds	2
-../Core/Src/main.c:78:6:turn_on_led	2
-../Core/Src/main.c:94:5:main	1
-../Core/Src/main.c:154:6:SystemClock_Config	3
-../Core/Src/main.c:196:13:MX_I2C1_Init	4
-../Core/Src/main.c:244:13:MX_GPIO_Init	1
-../Core/Src/main.c:296:6:HAL_GPIO_EXTI_Callback	4
-../Core/Src/main.c:321:6:Error_Handler	1
+../Core/Src/main.c:71:5:main	2
+../Core/Src/main.c:134:6:SystemClock_Config	3
+../Core/Src/main.c:176:13:MX_I2C1_Init	4
+../Core/Src/main.c:224:13:MX_GPIO_Init	1
+../Core/Src/main.c:276:6:HAL_GPIO_EXTI_Callback	1
+../Core/Src/main.c:286:6:Error_Handler	1

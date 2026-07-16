@@ -1,0 +1,8 @@
+../Core/Src/led.c:8:6:set_led	16	static
+../Core/Src/led.c:15:6:turn_off_all_leds	16	static
+../Core/Src/led.c:23:6:turn_on_led	16	static
+../Core/Src/led.c:32:9:get_led	16	static
+../Core/Src/led.c:36:6:rand_led	24	static
+../Core/Src/led.c:45:6:random_seed	8	static
+../Core/Src/led.c:49:9:random_get	16	static
+../Core/Src/led.c:56:9:random_position	8	static

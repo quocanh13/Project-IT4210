@@ -109,6 +109,20 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    if (score_updated)
+    {
+        score_updated = 0;
+
+        // Cập nhật LCD hiển thị điểm
+        char buf[17];
+        lcd_clear();
+        lcd_set_cursor(0, 0);
+        sprintf(buf, "Score: %d", get_score());
+        lcd_print(buf);
+
+        // Bật đèn mới cho lượt chơi tiếp
+        rand_led(1);
+    }
   }
   /* USER CODE END 3 */
 }
