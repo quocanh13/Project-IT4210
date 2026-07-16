@@ -45,7 +45,7 @@ void lcd_init(void) {
 
 void lcd_clear(void) {
     lcd_send_cmd(LCD_CLEAR_SCREEN); 
-    HAL_Delay(2);       
+    HAL_Delay(5);       
 }
 
 

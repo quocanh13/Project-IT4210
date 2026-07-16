@@ -24,7 +24,7 @@ void press_button(uint8_t button){
         if(score > 0) 
             score--;
     }
-    // lcd_clear();
+    lcd_clear();
     char s[20];
 
     lcd_set_cursor(0, 0);
