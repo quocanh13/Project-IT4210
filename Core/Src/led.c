@@ -23,10 +23,15 @@ uint8_t get_led(uint8_t led_index){
     return HAL_GPIO_ReadPin(LED_PORT, LED[led_index]);
 }
 
-uint8_t random_position(){
+uint8_t random_position(void)
+{
     uint32_t seed = HAL_GetTick();
-    uint8_t index = seed % 6;
-    return index;
+
+    seed ^= seed << 13;
+    seed ^= seed >> 17;
+    seed ^= seed << 5;
+
+    return seed % 6;
 }
 
 void random_led(){
@@ -38,6 +43,7 @@ void random_led(){
 void next_random_led(){
     uint32_t cur_time = HAL_GetTick();
     if(cur_time - prev_time > 2000){
+        turn_off_all_leds();
         for(int i = 0; i < 3; i++)
             random_led();
         prev_time = cur_time;
