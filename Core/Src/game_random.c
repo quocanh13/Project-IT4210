@@ -1,9 +1,6 @@
 #include "game_random.h"
 
-#define LCG_A  1664525U
-#define LCG_C  1013904223U
-
-static uint32_t seed = 0;
+uint32_t seed = 0;
 
 void random_seed(void){
     seed = HAL_GetTick();

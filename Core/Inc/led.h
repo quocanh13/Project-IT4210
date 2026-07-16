@@ -4,6 +4,7 @@
 
 #include "main.h"
 #include "stdint.h"
+#include "game_random.h"
 
 #define LED_PORT GPIOA
 #define LED_1 GPIO_PIN_6
