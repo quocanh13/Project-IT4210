@@ -23,7 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "lcd.h"
-#include "game_random.h"
+#include "led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -67,23 +67,7 @@ static void MX_I2C1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-void turn_off_all_leds(void)
-{
-    for (int i = 0; i < 6; i++)
-    {
-        HAL_GPIO_WritePin(GPIOA, led_pins[i], GPIO_PIN_RESET);
-    }
-}
-
-void turn_on_led(uint8_t pos)
-{
-    turn_off_all_leds();
-    if (pos < 6)
-    {
-        HAL_GPIO_WritePin(GPIOA, led_pins[pos], GPIO_PIN_SET);
-        active_led = pos;
-    }
-}
+/* turn_off_all_leds() and turn_on_led() moved to led.c */
 
 /* USER CODE END 0 */
 
@@ -125,22 +109,39 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  /* Start first round */
+  uint8_t pos = random_position();
+  turn_on_led(pos);
+  active_led = pos;
+  button_pressed = 0;
+
+  char buf[17];
+  lcd_set_cursor(0, 0);
+  sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
+  lcd_print(buf);
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
-    uint8_t pos = random_position();
-    turn_on_led(pos);
-    button_pressed = 0;
+    /* Wait until a button is pressed */
+    if (button_pressed)
+    {
+      button_pressed = 0;
 
-    char buf[17];
-    lcd_set_cursor(0, 0);
-    sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
-    lcd_print(buf);
+      /* If correct button, score already incremented in callback */
+      /* Either way, switch to a new random LED immediately */
+      pos = random_position();
+      turn_on_led(pos);
+      active_led = pos;
 
-    HAL_Delay(2000);
+      lcd_set_cursor(0, 0);
+      sprintf(buf, "LED: %d  Sc: %d", pos + 1, score);
+      lcd_print(buf);
+    }
   }
   /* USER CODE END 3 */
 }
