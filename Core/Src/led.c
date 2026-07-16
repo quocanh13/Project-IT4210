@@ -25,7 +25,8 @@ uint8_t get_led(uint8_t led_index){
 
 uint8_t random_position(void)
 {
-    uint32_t seed = HAL_GetTick();
+    uint32_t seed;
+    seed += HAL_GetTick();
 
     seed ^= seed << 13;
     seed ^= seed >> 17;
