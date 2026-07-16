@@ -41,6 +41,7 @@ void buzzer_play_melody(const Note *melody, uint16_t len) {
 }
 
 /* ---- Tần số các nốt nhạc (Hz) ---- */
+#define NOTE_G3 196
 #define NOTE_C4 262
 #define NOTE_D4 294
 #define NOTE_E4 330
