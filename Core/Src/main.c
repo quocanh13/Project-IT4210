@@ -102,9 +102,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
     buzzer_init();
     lcd_init();
-    lcd_set_cursor(0, 0);
     reset_state();
-    lcd_print("0");
+    lcd_set_cursor(0, 0);
+    lcd_print_game(level, get_score());
 
   /* USER CODE END 2 */
 
@@ -125,7 +125,6 @@ int main(void)
         else if (snd == 5) sound_level_down();
         else if (snd == 6) {
             sound_countdown();
-            start_random_led();
         }
     }
 
