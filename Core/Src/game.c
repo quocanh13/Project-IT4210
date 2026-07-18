@@ -56,5 +56,6 @@ void press_level_down_button(){
 void press_start_button(){
     score = 0;
     lcd_print_game(level, score);
+    start_random_led();
     pending_sound = 6;
 }
