@@ -36,12 +36,12 @@ extern I2C_HandleTypeDef hi2c1;
 #define LCD_SET_ROW_2               0xC0  // Ép con trỏ về vị trí đầu dòng 2
 // Mã lệnh
 
-void lcd_send_data(char data);              // Hàm gửi dữ liệu xuống LCD
-void lcd_send_cmd(char cmd);                // Hàm gửi lệnh xuống LCD
-void lcd_init(void);                        // Hàm khởi tạo LCD ở chế độ 4 bit
-void lcd_set_cursor(int row, int col);      // Hàm thiết lập vị trí con trỏ
-void lcd_print(char *str);                  // Hàm in xâu ra màn hình tính từ vị trí con trỏ hiện tại
-void lcd_clear(void);                        // Hàm xóa màn hình LCD
-void lcd_print_game(uint8_t level, unsigned int score); 
+void lcd_send_data(char data);                              // Hàm gửi dữ liệu xuống LCD
+void lcd_send_cmd(char cmd);                                // Hàm gửi lệnh xuống LCD
+void lcd_init(void);                                        // Hàm khởi tạo LCD ở chế độ 4 bit
+void lcd_set_cursor(int row, int col);                      // Hàm thiết lập vị trí con trỏ
+void lcd_print(char *str);                                  // Hàm in xâu ra màn hình tính từ vị trí con trỏ hiện tại
+void lcd_clear(void);                                       // Hàm xóa màn hình LCD
+void lcd_print_game(uint8_t level, unsigned int score);     // Hàm in trạng thái của game (level và score)
 
 #endif
